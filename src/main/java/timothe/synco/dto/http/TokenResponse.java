@@ -1,4 +1,4 @@
-package timothe.synco.dto;
+package timothe.synco.dto.http;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;

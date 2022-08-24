@@ -1,20 +1,17 @@
 package timothe.synco.api;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.el.parser.Token;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import timothe.synco.dto.ErrorResponse;
-import timothe.synco.dto.LoginDTO;
-import timothe.synco.dto.RegisterDTO;
-import timothe.synco.dto.TokenResponse;
+import timothe.synco.dto.http.ErrorResponse;
+import timothe.synco.dto.auth.LoginDTO;
+import timothe.synco.dto.auth.RegisterDTO;
+import timothe.synco.dto.http.TokenResponse;
 import timothe.synco.error.HttpExceptions;
 import timothe.synco.model.User;
 import timothe.synco.service.UserService;

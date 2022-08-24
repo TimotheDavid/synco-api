@@ -27,7 +27,6 @@ public class UserService {
     public void register(User user) throws Exception {
         User userEmail = userDao.findUserByEmail(user);
         if (userEmail  != null ) {
-            log.error("user found, cannot create");
             throw new HttpExceptions("302", new Throwable("user found , cannot create"), 302);
         }
 

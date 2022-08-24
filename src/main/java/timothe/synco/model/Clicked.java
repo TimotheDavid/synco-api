@@ -14,7 +14,9 @@ import java.util.UUID;
 public class Clicked {
 
     private UUID id;
-    private String app;
+    private String host;
     private Date date;
+    private String platform;
+    private UUID linkId;
 
 }

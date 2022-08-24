@@ -1,4 +1,4 @@
-package timothe.synco.dto;
+package timothe.synco.dto.auth;
 
 
 import lombok.Getter;

@@ -1,16 +1,18 @@
-package timothe.synco.model;
+package timothe.synco.dto.link;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Builder
-public class Link {
+public class CreateLinkDTO {
 
     private UUID id;
     private String name;

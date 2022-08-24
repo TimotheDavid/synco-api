@@ -13,7 +13,7 @@ public class Security {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().anyRequest().permitAll()
+        http.authorizeHttpRequests().antMatchers("/api/v1/auth", "/").permitAll()
                 .and().csrf().disable()
                 .cors().disable()
                 .formLogin().disable()
