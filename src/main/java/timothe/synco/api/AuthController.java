@@ -26,6 +26,11 @@ public class AuthController {
     @Autowired
     UserService user;
 
+    /**
+     * login routes for login the user
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO login) throws Exception {
         User userObject;
@@ -40,6 +45,12 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
+    /**
+     * register an user
+     * @param register
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterDTO register ) throws Exception {
         try{

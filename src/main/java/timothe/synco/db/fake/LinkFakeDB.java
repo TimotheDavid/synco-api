@@ -25,8 +25,13 @@ public class LinkFakeDB implements LinkDao {
     }
 
     @Override
-    public Link getLinkByShortUrlWthoutUser(Link link) {
+    public Link getLinkByShortUrlWithoutUser(Link link) {
         return links.stream().filter(linkObject -> Objects.equals(linkObject.getShortUrl(),link.getShortUrl())).findFirst().orElse(null);
+    }
+
+    @Override
+    public Link getLinkFromUUID(Link link) {
+        return links.stream().filter(linkObject -> Objects.equals(linkObject.getId(), link.getId())).findFirst().orElse(null);
     }
 
     @Override

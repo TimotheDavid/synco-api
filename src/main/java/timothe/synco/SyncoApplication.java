@@ -8,16 +8,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import timothe.synco.env.EnvConfig;
 import timothe.synco.model.Clicked;
+import timothe.synco.model.GeoPoint;
 import timothe.synco.model.Link;
 import timothe.synco.model.User;
 import timothe.synco.service.ClickedService;
 import timothe.synco.service.LinkService;
 import timothe.synco.service.UserService;
 
+import java.awt.*;
 import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
@@ -41,6 +43,11 @@ public class SyncoApplication {
     @Bean
     Faker faker(){
         return new Faker();
+    }
+
+    @Bean
+    CorsRegistry corsRegistry(){
+        return new CorsRegistry();
 
     }
     @Bean
@@ -54,16 +61,25 @@ public class SyncoApplication {
                         faker().internet().emailAddress(), "");
                 user.register(userObject);
 
+                log.info("user " + userObject.getId());
+
                 for(int v = 0; v <= 1; v++) {
                     String url = faker().internet().url().replace("www.", "https://");
+                    GeoPoint point = GeoPoint.builder().latitude(faker().address().latitude()).longitude(faker().address().longitude()).build();
                     Link linkObject = Link.builder().id(UUID.randomUUID())
                             .longUrl(url)
                             .shortUrl(RandomStringUtils.random(8, true, false))
                             .name(trim(faker().lorem().fixedString(10)))
                             .nameUrl(faker().internet().url())
+                          //  .password(passwordEncoder().encode("timdav"))
+                            //.username("tim")
+                            .maxClickedRedirectionLink(env.getMaxRedirectionLink())
+                            .loginUrl(env.getLoginUrl())
+                            .maxClicked(5)
+                            .points(point)
                             .build();
                     log.info("link " + linkObject.getId());
-                    log.info(env.getBase() + linkObject.getShortUrl());
+                    log.info(env.getBase() + linkObject.getShortUrl() +" " + linkObject.getUsername() +" " + linkObject.getPassword());
                     link.create(linkObject, userObject);
 
                     for(int l = 0; l < 3; l++){

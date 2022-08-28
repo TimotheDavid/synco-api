@@ -13,6 +13,14 @@ public class EnvConfig {
 
     public String getBase(){
         return env.getProperty("dev.base.url");
+    }
+
+    public String getLoginUrl(){
+        return env.getProperty("dev.login-url");
+    }
+
+    public String getMaxRedirectionLink() {
+        return env.getProperty("dev.max-link");
 
     }
 

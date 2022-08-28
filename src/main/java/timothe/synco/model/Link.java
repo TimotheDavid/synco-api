@@ -18,4 +18,11 @@ public class Link {
     private String longUrl;
     private String nameUrl;
     private UUID userId;
+    private String username;
+    private String password;
+    private String loginUrl;
+
+    private int maxClicked;
+    private String maxClickedRedirectionLink;
+    private GeoPoint points;
 }

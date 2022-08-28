@@ -12,7 +12,8 @@ public interface LinkDao {
 
     public Link getLinkByShortUrl(Link link, User user);
 
-    public Link getLinkByShortUrlWthoutUser(Link link);
+    public Link getLinkByShortUrlWithoutUser(Link link);
+   public Link  getLinkFromUUID(Link link);
     public void create(Link link) throws HttpExceptions;
     public void delete(Link link, User user);
 }

@@ -1,10 +1,8 @@
 package timothe.synco.dto.link;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import timothe.synco.model.GeoPoint;
 
 import java.util.UUID;
 
@@ -12,6 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class CreateLinkDTO {
 
     private UUID id;
@@ -20,4 +19,8 @@ public class CreateLinkDTO {
     private String longUrl;
     private String nameUrl;
     private UUID userId;
+    private int maxClicked;
+    private String loginUrl;
+    private String maxClickedRedirectionLink;
+    private GeoPointDTO points;
 }

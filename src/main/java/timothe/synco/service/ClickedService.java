@@ -24,6 +24,6 @@ public class ClickedService {
 
     public List<Clicked> getAllClickedByLink(Link link) {
         return clicker.getAllClickedForALink(link);
-
     }
+
 }
