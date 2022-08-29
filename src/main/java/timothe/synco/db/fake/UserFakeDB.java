@@ -21,8 +21,8 @@ public class UserFakeDB implements UserDao {
     List<User> users = new ArrayList<>();
 
     @Override
-    public void createUser(UserDetails user){
-    //
+    public void createUser(UserDetails user) {
+        //
 
     }
 
@@ -33,7 +33,7 @@ public class UserFakeDB implements UserDao {
 
     @Override
     public void deleteUser(String username) {
-       users =  users.stream().dropWhile(user -> user.getUsername().equals(username)).collect(Collectors.toList());
+        users = users.stream().dropWhile(user -> user.getUsername().equals(username)).collect(Collectors.toList());
     }
 
     //TODO : make it
@@ -72,4 +72,19 @@ public class UserFakeDB implements UserDao {
     public List<User> getAllUser() {
         return users;
     }
+
+    @Override
+    public User findByToken(String token) {
+        return users.stream().filter(user -> Objects.equals(user.getToken(), token)).findFirst().orElse(null);
+    }
+
+    @Override
+    public User setToken(User user) {
+        User userObject = users.stream().filter(userData -> Objects.equals(user.getId(), userData.getId())).findFirst().orElse(null);
+        users.remove(userObject);
+        users.add(user);
+        return user;
+    }
+
+
 }

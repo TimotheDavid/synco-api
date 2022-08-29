@@ -5,6 +5,8 @@ import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -24,10 +26,13 @@ public class User implements UserDetails {
     private String password;
     private String username;
 
+    private String token;
+
+    private Instant tokenExpiration;
+
 
 
     private String email;
-    private String token;
 
 
     public String getEmail() {
@@ -36,6 +41,20 @@ public class User implements UserDetails {
 
     public String getToken() {
         return token;
+    }
+
+    public Instant getTokenExpiration() {
+        return tokenExpiration;
+
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setTokenExpiration() {
+        this.tokenExpiration = Instant.now().plus(30, ChronoUnit.MINUTES);
+
     }
 
     public UUID getId() {

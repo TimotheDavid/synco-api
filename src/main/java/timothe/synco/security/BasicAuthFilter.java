@@ -2,8 +2,9 @@ package timothe.synco.security;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -19,6 +20,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 @NoArgsConstructor
+@Order(2)
 public class BasicAuthFilter implements Filter {
 
     private LinkService linkService;

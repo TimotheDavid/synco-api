@@ -16,6 +16,8 @@ import timothe.synco.error.HttpExceptions;
 import timothe.synco.model.User;
 import timothe.synco.service.UserService;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @RestController
@@ -42,6 +44,7 @@ public class AuthController {
 
         TokenResponse token = new TokenResponse();
         token.setId(userObject.getId());
+        token.setToken(userObject.getToken());
         return ResponseEntity.ok(token);
     }
 

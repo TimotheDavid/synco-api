@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import timothe.synco.env.EnvConfig;
 import timothe.synco.model.Clicked;
 import timothe.synco.model.GeoPoint;
@@ -21,12 +22,15 @@ import timothe.synco.service.UserService;
 
 import java.awt.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.UUID;
 
 import static org.apache.commons.lang3.StringUtils.trim;
 
 @SpringBootApplication @Slf4j
+@EnableSwagger2
 public class SyncoApplication {
 
     @Autowired
@@ -55,13 +59,17 @@ public class SyncoApplication {
         return args -> {
 
             for (int i = 0; i<=2; i++) {
-                User userObject = new User(UUID.randomUUID(),
-                        passwordEncoder().encode(faker().lorem().characters(8)),
-                        faker().name().username(),
-                        faker().internet().emailAddress(), "");
+                User userObject = User.builder()
+                        .id(UUID.randomUUID())
+                        .password(faker().internet().password())
+                        .email(faker().internet().emailAddress())
+                        .token(RandomStringUtils.random(64, true, true))
+                        .tokenExpiration(Instant.now().plus(30, ChronoUnit.MINUTES))
+                        .username(faker().name().username()).build();
+
                 user.register(userObject);
 
-                log.info("user " + userObject.getId());
+                log.info("user " + userObject.getId() + " " + userObject.getToken());
 
                 for(int v = 0; v <= 1; v++) {
                     String url = faker().internet().url().replace("www.", "https://");

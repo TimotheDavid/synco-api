@@ -13,4 +13,8 @@ public interface UserDao extends UserDetailsManager {
     User findUserByEmail(User user);
 
     List<User> getAllUser();
+
+    User findByToken(String token);
+
+    User setToken(User user);
 }
