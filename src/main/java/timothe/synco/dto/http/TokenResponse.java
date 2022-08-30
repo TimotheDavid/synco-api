@@ -19,7 +19,6 @@ public class TokenResponse {
     private String token;
 
     public TokenResponse(UUID id) {
-        log.info("user " + id.toString());
         this.id = id;
     }
 

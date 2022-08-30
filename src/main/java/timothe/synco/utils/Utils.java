@@ -1,2 +1,3 @@
-package timothe.synco.utils;public class Utils {
+package timothe.synco.utils;
+public class Utils {
 }

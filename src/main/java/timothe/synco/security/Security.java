@@ -43,7 +43,7 @@ public class Security {
 
     @Bean
     public SecurityFilterChain filterChainBasicAuth(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/*", "/api/v1/auth/*", "/doc/swagger-ui/*", "/v2/api-docs").permitAll();
+        http.authorizeRequests().antMatchers("/*", "/api/v1/auth/*").permitAll();
         return http.build();
     }
 
@@ -51,22 +51,20 @@ public class Security {
     @Bean
     public FilterRegistrationBean<BasicAuthFilter> basicAuthFilterRegistrationBean() {
         FilterRegistrationBean<BasicAuthFilter> basicAuthFilterFilterRegistrationBean = new FilterRegistrationBean<>();
-
-        log.info("basic filter");
         basicAuthFilterFilterRegistrationBean.setFilter(new BasicAuthFilter());
-        basicAuthFilterFilterRegistrationBean.addUrlPatterns("/*");
+        basicAuthFilterFilterRegistrationBean.addUrlPatterns("/**");
         basicAuthFilterFilterRegistrationBean.setOrder(2);
         return basicAuthFilterFilterRegistrationBean;
-
     }
+
+
 
     @Bean
     public FilterRegistrationBean<BearerAuthentication> bearerAuthFilterRegistration() {
         FilterRegistrationBean<BearerAuthentication> bearerRegistrationBean = new FilterRegistrationBean<>();
 
-        log.info("bearer filter");
         bearerRegistrationBean.setFilter(new BearerAuthentication(userService));
-        bearerRegistrationBean.addUrlPatterns("/api/v1/users", "/api/v1/users/**", "/api/v1/link/*", "/api/v1/clicked/**");
+        bearerRegistrationBean.addUrlPatterns("/api/v1/users", "/api/v1/link/*", "/api/v1/clicked/*");
         bearerRegistrationBean.setOrder(1);
         return bearerRegistrationBean;
     }

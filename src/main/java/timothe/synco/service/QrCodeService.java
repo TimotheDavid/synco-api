@@ -20,7 +20,12 @@ public class QrCodeService {
     public QrCodeResponse getQrCode(Link link, int width, int height) throws HttpExceptions {
 
         byte[] image;
-        Link linkObject = links.getLinkFromUUID(link);
+        Link linkObject;
+
+            linkObject = links.getLinkFromUUID(link);
+            if(linkObject == null) {
+                throw  new HttpExceptions("404", new Throwable("link not found"), 404);
+            }
 
         try {
             image = QrCodeGenerator.getQrCodeImage(linkObject.getLongUrl(), width, height);

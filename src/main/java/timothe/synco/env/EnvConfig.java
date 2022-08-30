@@ -12,7 +12,7 @@ public class EnvConfig {
     Environment env;
 
     public String getBase(){
-        return env.getProperty("dev.base.url");
+        return env.getProperty("base.url");
     }
 
     public String getLoginUrl(){

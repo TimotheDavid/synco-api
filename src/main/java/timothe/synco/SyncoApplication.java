@@ -8,9 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import timothe.synco.env.EnvConfig;
 import timothe.synco.model.Clicked;
 import timothe.synco.model.GeoPoint;
@@ -20,17 +20,15 @@ import timothe.synco.service.ClickedService;
 import timothe.synco.service.LinkService;
 import timothe.synco.service.UserService;
 
-import java.awt.*;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.UUID;
 
 import static org.apache.commons.lang3.StringUtils.trim;
 
-@SpringBootApplication @Slf4j
-@EnableSwagger2
+@SpringBootApplication
+@Slf4j
 public class SyncoApplication {
 
     @Autowired
@@ -55,6 +53,7 @@ public class SyncoApplication {
 
     }
     @Bean
+    @Profile("!prod")
     CommandLineRunner init (UserService user, LinkService link, ClickedService clicked) {
         return args -> {
 
@@ -69,7 +68,6 @@ public class SyncoApplication {
 
                 user.register(userObject);
 
-                log.info("user " + userObject.getId() + " " + userObject.getToken());
 
                 for(int v = 0; v <= 1; v++) {
                     String url = faker().internet().url().replace("www.", "https://");
@@ -86,8 +84,6 @@ public class SyncoApplication {
                             .maxClicked(5)
                             .points(point)
                             .build();
-                    log.info("link " + linkObject.getId());
-                    log.info(env.getBase() + linkObject.getShortUrl() +" " + linkObject.getUsername() +" " + linkObject.getPassword());
                     link.create(linkObject, userObject);
 
                     for(int l = 0; l < 3; l++){
@@ -97,7 +93,6 @@ public class SyncoApplication {
                                 .id(UUID.randomUUID())
                                 .platform(faker().internet().userAgentAny())
                                 .linkId(linkObject.getId()).build();
-                        log.info("click " + click.getId());
                         clicked.add(click.getHost(), click.getPlatform(), linkObject);
 
                     }

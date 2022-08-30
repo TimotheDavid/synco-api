@@ -59,8 +59,13 @@ public class UserService {
         return User.builder().id(userEmail.getId()).token(userEmail.getToken()).build();
     }
 
-    public User getUserByBearer(String token) {
-        return  userDao.findByToken(token);
+    public User getUserByBearer(String token) throws HttpExceptions {
+        User user = userDao.findByToken(token);
+
+        if(user == null) {
+            throw new HttpExceptions("404", new Throwable("user not found"), 404);
+        }
+        return user;
     }
 
     private String  generateBearerToken() {
